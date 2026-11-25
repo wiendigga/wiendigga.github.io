@@ -81,7 +81,13 @@
   // Label: hover on desktop, tap on touch screens.
   const show = () => label.classList.add("on");
   const hide = () => label.classList.remove("on");
-  hit.addEventListener("mouseenter", show);
-  hit.addEventListener("mouseleave", hide);
-  hit.addEventListener("click", () => label.classList.toggle("on"));
+  // iOS fires a synthetic mouseenter right before the click on the first tap,
+  // so hover handlers are ignored for touch and a tap always just shows it.
+  let touch = window.matchMedia("(hover: none)").matches;
+  hit.addEventListener("pointerdown", (e) => { touch = e.pointerType !== "mouse"; });
+  hit.addEventListener("mouseenter", () => { if (!touch) show(); });
+  hit.addEventListener("mouseleave", () => { if (!touch) hide(); });
+  hit.addEventListener("click", show);
+  document.addEventListener("click", (e) => { if (e.target !== hit) hide(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") hide(); });
 })();
