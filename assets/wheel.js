@@ -45,8 +45,9 @@
     return typeof deg === "number" ? DIRS[Math.round(deg / 45) % 8] : "";
   }
 
-  // Degrees per second: calm air still turns the wheel slowly, a storm spins it.
-  const speedFor = (kmh) => Math.min(2 + kmh * 0.5, 30);
+  // Degrees per second, roughly linear in wind speed: near standstill when
+  // calm (0 km/h -> 0.2), ~4.7 at a light breeze (15 km/h), capped at 20.
+  const speedFor = (kmh) => Math.min(0.2 + kmh * 0.3, 20);
 
   let target = speedFor(DEFAULT_KMH), speed = target, angle = 0, last = null;
 
