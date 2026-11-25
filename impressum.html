@@ -22,19 +22,10 @@
   <main>
     <h1>Impressum</h1>
 
-    <!--
-      TODO (float): Platzhalter in [eckigen Klammern] ersetzen.
-      Offenlegung nach § 25 MedienG, Variante "kleine Website": Name und
-      Wohnort (Gemeinde) des Medieninhabers sowie Gegenstand/Zweck der Website.
-      Eine volle Postadresse ist erst nötig, wenn das E-Commerce-Gesetz (§ 5 ECG)
-      greift, also bei kommerziellen Angeboten (Werbung, Verkauf, bezahlte Dienste).
-      Die E-Mail-Adresse ist nicht vorgeschrieben, aber üblich.
-    -->
-
     <h2>Offenlegung gemäß § 25 Mediengesetz</h2>
-    <p><strong>Medieninhaber:</strong> [Vor- und Nachname], [Wohnort/Gemeinde], Österreich</p>
+    <p><strong>Medieninhaber:</strong> Florian Klinglmueller, Wien, Österreich</p>
     <p><strong>Gegenstand der Website:</strong> Private, nicht-kommerzielle Website mit persönlichen Hobby- und Spaßprojekten.</p>
-    <p><strong>Kontakt:</strong> [E-Mail-Adresse]</p>
+    <p><strong>Kontakt:</strong> <a id="mail" data-u="florian.klinglmueller" data-d="gmail.com">florian.klinglmueller [at] gmail.com</a></p>
 
     <h2>Hinweis zu KI</h2>
     <p>Teile dieser Website und der verlinkten Projekte (Texte, Bilder und Code) wurden mithilfe von KI-Werkzeugen erstellt.</p>
@@ -46,9 +37,16 @@
     <p>Diese Website verwendet keine Cookies, kein Tracking und keine Analyse-Tools. Sie wird über GitHub Pages (GitHub, Inc.) bereitgestellt. GitHub verarbeitet beim Aufruf technisch notwendige Daten wie die IP-Adresse; Details in der <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">Datenschutzerklärung von GitHub</a>. Verlinkte Projekte können eigene Dienste einbinden.</p>
 
     <h2 lang="en">In English</h2>
-    <p lang="en">wiendigga is a private, non-commercial site run by [name], [town], Austria. Parts of the site and its projects were made with the help of AI tools. These are personal projects, not connected to or endorsed by my employer AGES, by BASG or by EMA.</p>
+    <p lang="en">wiendigga is a private, non-commercial site run by Florian Klinglmueller, Wien, Austria. Parts of the site and its projects were made with the help of AI tools. These are personal projects, not connected to or endorsed by my employer AGES, by BASG or by EMA.</p>
 
     <p class="back"><a href="/">← zurück zu wiendigga</a></p>
   </main>
+  <script>
+    // Light spam protection: the address is only assembled in the browser.
+    const m = document.getElementById("mail");
+    const addr = m.dataset.u + "@" + m.dataset.d;
+    m.href = "mailto:" + addr;
+    m.textContent = addr;
+  </script>
 </body>
 </html>
