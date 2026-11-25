@@ -34,9 +34,75 @@
       height: auto;
       width: auto;
     }
+    .stage {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+      line-height: 0;
+    }
+    .stage > img { display: block; }
+    #hotspots {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      mix-blend-mode: multiply;
+    }
+    .spot path:not(.hit) {
+      fill: var(--tint);
+      fill-opacity: 0.3;
+      transition: fill-opacity 160ms ease;
+      animation: breathe 6s ease-in-out var(--delay) infinite;
+    }
+    .spot .hit {
+      fill: none;
+      stroke: transparent;
+      stroke-width: 120;
+      pointer-events: all;
+      animation: none;
+    }
+    .spot:hover path:not(.hit), .spot:focus path:not(.hit), .spot.on path:not(.hit) {
+      fill-opacity: 0.85;
+      animation: none;
+    }
+    .spot:focus { outline: none; }
+    .spot:focus-visible path { stroke: var(--tint); stroke-width: 8; }
+    @keyframes breathe {
+      0%, 100% { fill-opacity: 0.3; }
+      50% { fill-opacity: 0.45; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .spot path { animation: none; transition: none; }
+    }
+    #card {
+      position: absolute;
+      z-index: 1;
+      width: max-content;
+      max-width: min(240px, 70vw);
+      box-sizing: border-box;
+      padding: 0.6rem 0.8rem;
+      background: #ffffff;
+      border: 1px solid #000;
+      border-left: 4px solid var(--tint);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      font: 14px/1.35 Georgia, "Times New Roman", serif;
+      color: #000;
+      pointer-events: auto;
+    }
+    #card[hidden] { display: none; }
+    #card img { display: block; width: 100%; margin-bottom: 0.4rem; }
+    #card strong { display: block; font-size: 15px; }
+    #card a { display: block; margin-top: 0.4rem; color: #000; }
   </style>
 </head>
 <body>
-  <img src="wiendigga2.webp" width="1408" height="768" alt="Minimalist black-and-white AI-generated illustration of an empress in windy Vienna">
+  <div class="stage" id="stage">
+    <img src="wiendigga2.webp" width="1408" height="768" alt="Minimalist black-and-white AI-generated illustration of an empress in windy Vienna">
+    <svg id="hotspots" viewBox="0 0 1408 768" aria-label="Projects"></svg>
+    <div id="card" role="tooltip" hidden></div>
+  </div>
+  <script src="assets/slots.js"></script>
+  <script src="projects.js"></script>
+  <script src="assets/hotspots.js"></script>
 </body>
 </html>
