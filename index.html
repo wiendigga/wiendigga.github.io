@@ -41,6 +41,13 @@
       line-height: 0;
     }
     .stage > img { display: block; }
+    #wheel {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
     #hotspots {
       position: absolute;
       inset: 0;
@@ -73,6 +80,28 @@
     @media (prefers-reduced-motion: reduce) {
       .spot path { animation: none; transition: none; }
     }
+    #wheel-hit {
+      position: absolute;
+      left: 38.8%;
+      top: 48.8%;
+      width: 10.6%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+    }
+    #wind-label {
+      position: absolute;
+      left: 44.1%;
+      top: 48.5%;
+      transform: translate(-50%, -100%);
+      font: 13px/1.2 Georgia, "Times New Roman", serif;
+      color: #555;
+      text-shadow: 0 0 3px #fff, 0 0 3px #fff, 0 0 3px #fff;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 200ms ease;
+      pointer-events: none;
+    }
+    #wind-label.on { opacity: 1; }
     #card {
       position: absolute;
       z-index: 1;
@@ -96,12 +125,34 @@
 </head>
 <body>
   <div class="stage" id="stage">
-    <img src="wiendigga2.webp" width="1408" height="768" alt="Minimalist black-and-white AI-generated illustration of an empress in windy Vienna">
+    <img src="wiendigga-nowheel.webp" width="1408" height="768" alt="Minimalist black-and-white AI-generated illustration of an empress in windy Vienna">
+    <svg id="wheel" viewBox="0 0 1408 768" aria-hidden="true">
+      <defs>
+        <clipPath id="wheel-clip"><rect x="540" y="370" width="170" height="147"/></clipPath>
+        <g id="wheel-arm">
+          <line x1="0" y1="-3" x2="0" y2="-64" stroke="#000" stroke-width="1.1"/>
+          <rect x="-3.6" y="-72.6" width="7.2" height="7.6" rx="1.2"/>
+        </g>
+      </defs>
+      <g clip-path="url(#wheel-clip)">
+        <g id="wheel-rotor" transform="translate(621.05 450.09)">
+          <circle r="54.1" fill="none" stroke="#000" stroke-width="2.9"/>
+          <circle r="64" fill="none" stroke="#000" stroke-width="2.6"/>
+          <circle r="4"/>
+          <use href="#wheel-arm" transform="rotate(-0.5)"/><use href="#wheel-arm" transform="rotate(14.5)"/><use href="#wheel-arm" transform="rotate(29.5)"/><use href="#wheel-arm" transform="rotate(44.5)"/><use href="#wheel-arm" transform="rotate(59.5)"/><use href="#wheel-arm" transform="rotate(74.5)"/><use href="#wheel-arm" transform="rotate(89.5)"/><use href="#wheel-arm" transform="rotate(104.5)"/><use href="#wheel-arm" transform="rotate(119.5)"/><use href="#wheel-arm" transform="rotate(134.5)"/><use href="#wheel-arm" transform="rotate(149.5)"/><use href="#wheel-arm" transform="rotate(164.5)"/><use href="#wheel-arm" transform="rotate(179.5)"/><use href="#wheel-arm" transform="rotate(194.5)"/><use href="#wheel-arm" transform="rotate(209.5)"/><use href="#wheel-arm" transform="rotate(224.5)"/><use href="#wheel-arm" transform="rotate(239.5)"/><use href="#wheel-arm" transform="rotate(254.5)"/><use href="#wheel-arm" transform="rotate(269.5)"/><use href="#wheel-arm" transform="rotate(284.5)"/><use href="#wheel-arm" transform="rotate(299.5)"/><use href="#wheel-arm" transform="rotate(314.5)"/><use href="#wheel-arm" transform="rotate(329.5)"/><use href="#wheel-arm" transform="rotate(344.5)"/>
+        </g>
+      </g>
+      <g id="wheel-legs"><polygon points="618.8,449.3 591.8,518.6 599.2,521.4 623.3,450.9"/><polygon points="618.8,450.9 642.8,521.4 650.2,518.6 623.3,449.3"/></g>
+      <image href="assets/wheel-front.png" x="544" y="373" width="156" height="159"/>
+    </svg>
     <svg id="hotspots" viewBox="0 0 1408 768" aria-label="Projects"></svg>
+    <div id="wheel-hit"></div>
+    <div id="wind-label" aria-live="polite">Wind: …</div>
     <div id="card" role="tooltip" hidden></div>
   </div>
   <script src="assets/slots.js"></script>
   <script src="projects.js"></script>
   <script src="assets/hotspots.js"></script>
+  <script src="assets/wheel.js"></script>
 </body>
 </html>
