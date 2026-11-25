@@ -8,7 +8,7 @@
   if (!rotor) return;
 
   const HUB = "translate(621.05 450.09)";
-  const DEFAULT_KMH = 30;              // used when no data is available
+  const DEFAULT_KMH = 15;              // used when no data is available
   const REFRESH_MS = 10 * 60 * 1000;   // GeoSphere updates every 10 minutes
   const DIRS = ["N", "NO", "O", "SO", "S", "SW", "W", "NW"];
 
@@ -45,12 +45,10 @@
     return typeof deg === "number" ? DIRS[Math.round(deg / 45) % 8] : "";
   }
 
-  // Degrees per second, proportional to wind speed. Calibrated like the real
-  // Riesenrad: one turn in 4 min 15 s (255 s) at 30 km/h, Vienna's average.
-  // Calm air leaves it almost still; capped at four times that speed.
-  const REAL_DEG_PER_S = 360 / 255, AVERAGE_KMH = 30;
-  const speedFor = (kmh) =>
-    Math.min(0.01 + (kmh / AVERAGE_KMH) * REAL_DEG_PER_S, 4 * REAL_DEG_PER_S);
+  // Degrees per second. Gentle and roughly linear in everyday wind, then
+  // speeding up sharply in storms (cubic term): ~2.5 min per turn at 15 km/h,
+  // ~1 min at 30, ~12 s at 80, ~5 s at 120. Calm air leaves it almost still.
+  const speedFor = (kmh) => Math.min(0.01 + 0.16 * kmh + 3.06e-5 * kmh ** 3, 120);
 
   let target = speedFor(DEFAULT_KMH), speed = target, angle = 0, last = null;
 
