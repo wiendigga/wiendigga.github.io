@@ -50,7 +50,7 @@
     }
     .spot path:not(.hit) {
       fill: var(--tint);
-      fill-opacity: 0.3;
+      fill-opacity: 0.55;
       transition: fill-opacity 160ms ease;
       animation: breathe 6s ease-in-out var(--delay) infinite;
     }
@@ -62,14 +62,14 @@
       animation: none;
     }
     .spot:hover path:not(.hit), .spot:focus path:not(.hit), .spot.on path:not(.hit) {
-      fill-opacity: 0.85;
+      fill-opacity: 1;
       animation: none;
     }
     .spot:focus { outline: none; }
     .spot:focus-visible path { stroke: var(--tint); stroke-width: 8; }
     @keyframes breathe {
-      0%, 100% { fill-opacity: 0.3; }
-      50% { fill-opacity: 0.45; }
+      0%, 100% { fill-opacity: 0.55; }
+      50% { fill-opacity: 0.8; }
     }
     @media (prefers-reduced-motion: reduce) {
       .spot path { animation: none; transition: none; }

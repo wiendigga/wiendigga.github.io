@@ -4,7 +4,11 @@
 (function () {
   const SLOTS = window.WIENDIGGA_SLOTS || {};
   const PROJECTS = window.WIENDIGGA_PROJECTS || [];
-  const PALETTE = ["#e4572e", "#2e86ab", "#f2a541", "#3bb273", "#7768ae"];
+  // Mellow defaults: paper tones for pages, autumn tones for leaves.
+  const PALETTE = {
+    page: ["#e2d3b4", "#cfc8bb", "#cdb08e"], // beige, paper grey, light brown
+    leaf: ["#b5c99a", "#d9a38f", "#c19a6b"], // sage green, muted red, brown
+  };
   const SVG_NS = "http://www.w3.org/2000/svg";
   // Traced paths are stored at 4x scale with a flipped y axis.
   const PATH_TRANSFORM = "matrix(0.25 0 0 -0.25 0 768)";
@@ -23,7 +27,8 @@
     a.setAttribute("href", p.url);
     a.setAttribute("class", "spot");
     a.setAttribute("aria-label", p.name + ": " + p.hint);
-    a.style.setProperty("--tint", p.color || PALETTE[i % PALETTE.length]);
+    const pal = PALETTE[p.slot.startsWith("leaf") ? "leaf" : "page"];
+    a.style.setProperty("--tint", p.color || pal[i % pal.length]);
     a.style.setProperty("--delay", (i * 1.7) + "s");
     const path = document.createElementNS(SVG_NS, "path");
     path.setAttribute("d", slot.d);
